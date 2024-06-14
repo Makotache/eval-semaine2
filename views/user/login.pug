@@ -1,0 +1,17 @@
+extends ../layout/layout
+
+block content
+    if all_error
+        each error in all_error
+            span.text-danger #{error}
+
+    form(action="/user/loginPost", method="post")
+        div.mb-3
+            label.form-label(for="email") Email
+            input.form-control(name="email", id="email", type="text")
+        div.mb-3
+            label.form-label(for="password") Password
+            input.form-control(name="password", id="password", type="password")
+        div.mb-3
+            input.btn.btn-primary(type='submit', value='Login')
+    a(href="/user/register") Register

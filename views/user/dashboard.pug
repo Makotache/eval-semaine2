@@ -1,0 +1,17 @@
+extends ../layout/layout
+
+block content
+    table
+        thead
+            tr
+                th Firstname
+                th Lastname
+                th Email
+                th Password
+        tbody
+            tr
+                td #{user.firstname}
+                td #{user.lastname}
+                td #{user.email}
+                td #{user.password}
+    a(href="/user/logout") Logout

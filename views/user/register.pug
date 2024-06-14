@@ -1,0 +1,30 @@
+extends ../layout/layout
+
+block content 
+    if all_error
+        div.d-flex.flex-column
+            each error in all_error
+                span.text-danger #{error}
+
+    form(action="/user/registerPost", method="post")
+        div.mb-3
+            label.form-label(for="firstname") Firstname
+            input.form-control(name="firstname", id="firstname", type="text")
+        div.mb-3
+            label.form-label(for="lastname") Lastname
+            input.form-control(name="lastname", id="lastname", type='text')
+        
+        div.mb-3
+            label.form-label(for="email") Email
+            input.form-control(name="email", id="email", type='text')
+        
+        div.mb-3
+            label.form-label(for="password") Password
+            input.form-control(name="password", id="password", type='password')
+        div.mb-3
+            label.form-label(for="password_repeat") Repeat Password
+            input.form-control(name="password_repeat", id="password_repeat", type="password")
+
+        div.mb-3
+            input.btn.btn-primary(type='submit', value='Register')
+    a(href="/user/login") Login
