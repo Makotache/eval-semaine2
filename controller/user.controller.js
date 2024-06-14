@@ -12,7 +12,7 @@ function validateEmail(email)
 
 export function registerGet(req, res)
 {
-	res.render("user/register");
+	res.render("user/register", { info: req.flash("info"), errors: req.flash("error") });
 }
 
 export async function registerPost(req, res)
@@ -37,7 +37,8 @@ export async function registerPost(req, res)
 
 	if (all_error.length > 0)
 	{
-		res.render("user/register", { all_error });
+		req.flash("error", all_error);
+		res.redirect("/user/register");
 		return;
 	}
 
@@ -52,12 +53,13 @@ export async function registerPost(req, res)
 	})
 
 	await newUser.save();
+	req.flash("success", "You have been registered.")
 	res.redirect("/user/login")
 }
 
 export function loginGet(req, res)
 {
-	res.render("user/login");
+	res.render("user/login", { success: req.flash("success"), errors: req.flash("error") });
 }
 
 export async function loginPost(req, res)
@@ -76,22 +78,26 @@ export async function loginPost(req, res)
 
 	if (all_error.length > 0)
 	{
-		res.render("user/login", { all_error });
+		req.flash("error", all_error)
+		res.render("user/login");
 		return;
 	}
 
+	req.flash("success", "You have been logged.")
 	req.session.auth = user;
 	res.redirect("/user/dashboard");
 }
 
 export function logout(req, res)
 {
-	req.session.destroy();
+	req.session.auth = null; //destro empêche flash de fonctionner
+	//req.session.destroy(); 
+	req.flash("info", "You have been disconnected.");
 	res.redirect("/user/register");
 }
 
 export function dashboard(req, res)
 {
-	res.render("user/dashboard", { user: req.session.auth });
+	res.render("user/dashboard", { user: req.session.auth, success: req.flash("success") });
 }
 

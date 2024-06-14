@@ -6,4 +6,18 @@ html
         link(rel='stylesheet', href="/css/bootstrap.min.css")
         title Just Login Page
     body(class="container")
+        
+        if errors && errors.length > 0
+            div.d-flex.flex-column
+                each error in errors
+                    span.text-danger #{error}
+        
+        if success && success.length > 0
+            span.text-success #{success[0]}
+
+
+        if info && info.length > 0
+            span.text-info #{info[0]}
+            
         block content
+            

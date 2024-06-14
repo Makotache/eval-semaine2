@@ -4,6 +4,7 @@ import session from 'express-session';
 import routes from "./routes/index.js";
 import dotenv from 'dotenv';
 import MongoStore from "connect-mongo";
+import flash from "express-flash";
 dotenv.config();
 
 const server = express();
@@ -27,7 +28,7 @@ server.use(function (req, res, next)
     req.session.message = null
     next();
 });
-
+server.use(flash())
 server.use(express.static(staticPath));
 server.use(express.urlencoded({ extended: false }));
 server.use(routes);

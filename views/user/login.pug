@@ -1,10 +1,6 @@
 extends ../layout/layout
 
 block content
-    if all_error
-        each error in all_error
-            span.text-danger #{error}
-
     form(action="/user/loginPost", method="post")
         div.mb-3
             label.form-label(for="email") Email
